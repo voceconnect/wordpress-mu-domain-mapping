@@ -641,7 +641,17 @@ function redirect_login_to_orig() {
 
 // fixes the plugins_url 
 function domain_mapping_plugins_uri( $full_url, $path=NULL, $plugin=NULL ) {
-	return get_option( 'siteurl' ) . substr( $full_url, stripos( $full_url, PLUGINDIR ) - 1 );
+    $plugin_dir_pos = stripos( $full_url, PLUGINDIR );
+
+	// if the plugin isn't in the PLUGINDIR, check the MUPLUGINDIR
+	$plugin_dir_pos === false && $plugin_dir_pos = stripos( $full_url, MUPLUGINDIR );
+
+	// Skip URLs that don't point to files in PLUGINDIR or MUPLUGINDIR
+	if ( $plugin_dir_pos === false ) {
+		return $full_url;
+	}
+
+    return get_option( 'siteurl' ) . substr( $full_url, $plugin_dir_pos - 1 );
 }
 
 function domain_mapping_themes_uri( $full_url ) {
