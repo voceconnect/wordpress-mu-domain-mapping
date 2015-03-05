@@ -1,3 +1,7 @@
+2015-03-05 10:54  matstars
+
+	* fixed filter on plugins_url to work correctly with plugins directory/mu-plugins directory
+
 2013-03-22 10:54  donncha
 
 	* readme.txt: Bump stable tag and version tested
